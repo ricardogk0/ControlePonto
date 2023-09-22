@@ -1,3 +1,4 @@
+using Backend.Mappings;
 using beckend.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +13,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<BatidaPontoContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("BatidaPontoContext") ?? throw new InvalidOperationException("Connection string 'beckend' not found.")));
+
+builder.Services.AddAutoMapper(typeof(ToDTOMappingProfile));
 
 
 var app = builder.Build();
