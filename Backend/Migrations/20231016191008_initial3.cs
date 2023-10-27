@@ -6,23 +6,39 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace beckend.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class initial3 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Marks",
+                name: "Marcacoes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Data = table.Column<string>(type: "text", nullable: true),
-                    Horario = table.Column<string>(type: "text", nullable: true)
+                    Horario = table.Column<string>(type: "text", nullable: true),
+                    Status = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Marks", x => x.Id);
+                    table.PrimaryKey("PK_Marcacoes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    full_name = table.Column<string>(type: "text", nullable: true),
+                    login = table.Column<string>(type: "text", nullable: true),
+                    password = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -38,14 +54,14 @@ namespace beckend.Migrations
                 {
                     table.PrimaryKey("PK_Registros", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Registros_Marks_EntradaId",
+                        name: "FK_Registros_Marcacoes_EntradaId",
                         column: x => x.EntradaId,
-                        principalTable: "Marks",
+                        principalTable: "Marcacoes",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Registros_Marks_SaidaId",
+                        name: "FK_Registros_Marcacoes_SaidaId",
                         column: x => x.SaidaId,
-                        principalTable: "Marks",
+                        principalTable: "Marcacoes",
                         principalColumn: "Id");
                 });
 
@@ -67,7 +83,10 @@ namespace beckend.Migrations
                 name: "Registros");
 
             migrationBuilder.DropTable(
-                name: "Marks");
+                name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Marcacoes");
         }
     }
 }

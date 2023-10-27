@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace beckend.Models
+namespace Backend.Models
 {
     public class Registro
     {
